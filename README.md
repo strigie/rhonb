@@ -12,10 +12,10 @@ This document will provide an HOWTO install Openshift on AWS with Calico eBPF CN
 * Install pip and git
 	
 	```bash
-	sudo dnf -y install pip git
+	$ sudo dnf -y install pip git
 	```
 * Create a workspace directory and clone this repository
 
 	```bash
-	mkdir dev && cd dev
+	$ mkdir dev && cd dev
 	```
