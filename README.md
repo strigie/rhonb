@@ -133,18 +133,17 @@ The Openshift installation requires public DNS records. Our organization has a p
   
   The output should look something like this
 
-  ```pre
-  $ openshift-install create install-config
-? SSH Public Key /home/<USER>/.ssh/id_ed25519.pub
-? Platform aws
-INFO Credentials loaded from the "default" profile in file "/home/<USER>/.aws/credentials" 
-? Region ca-central-1
-? Base Domain <myprefix>.<yourdomain.xyz>
-? Cluster Name <clustername>
-? Pull Secret [? for help] *******************************************************************************************************************************************************************************************************************************************************************************************
-INFO Install-Config created in: .
+	```pre
+	$ openshift-install create install-config
+	? SSH Public Key /home/<USER>/.ssh/id_ed25519.pub
+	? Platform aws
+	INFO Credentials loaded from the "default" profile in file "/home/<USER>/.aws/credentials" 
+	? Region ca-central-1
+	? Base Domain <myprefix>.<yourdomain.xyz>
+	? Cluster Name <clustername>
+	? Pull Secret [? for help]  ************************************************************************
+	INFO Install-Config created in: .
 ```
-
  
 * Edit the install-config.yaml in your favorite editor.
 
