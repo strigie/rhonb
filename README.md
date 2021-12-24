@@ -33,6 +33,7 @@ This document will provide an HOWTO install Openshift on AWS with Calico eBPF CN
 unzip /tmp/awscliv2.zip
 sudo /tmp/aws/install
 	```
+	
 	Refer to https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
 * Install the Openshift installer and oc command line interface
@@ -106,16 +107,17 @@ The Openshift installation requires public DNS records. Our organization has a p
   ```bash
   export BASEZONE=<yourdomain.xyz>
   export CLUSTERNAME=<clustername>
+  export PREFIX=<myprefix>
   ```
 
 * Run ansible
 
   ```bash
   cd rhonb/route53/
-  ansible-playbook route53.yaml -D -C -e basezone=$BASEZONE -e prefix=$CLUSTERNAME
+  ansible-playbook route53.yaml -D -C -e basezone=$BASEZONE -e prefix=$PREFIX
   ```
   
-  The -C parameter will run the playbook in dry-run mode and will not do any changes. Once you are comfortable with it, run it without -C and a new Route53 zone (clustername.yourdomain.xyz) will be created in AWS.
+  The -C parameter will run the playbook in dry-run mode and will not do any changes. Once you are comfortable with it, run it without -C and a new Route53 zone (myprefix.yourdomain.xyz) will be created in AWS.
 
 ### Create openshift install-config
 * Generate default install-config
@@ -124,6 +126,25 @@ The Openshift installation requires public DNS records. Our organization has a p
   cd .. && mkdir $CLUSTERNAME && cd $CLUSTERNAME
   openshift-install create install-config
   ```
+  
+  The installer will use your AWS credentials from ~/.aws/credentials automatically.
+  
+  In the last step use the Red Hat pull secret you downloaded into pull-secret.json.
+  
+  The output should look something like this
+
+  ```pre
+  $ openshift-install create install-config
+? SSH Public Key /home/<USER>/.ssh/id_ed25519.pub
+? Platform aws
+INFO Credentials loaded from the "default" profile in file "/home/<USER>/.aws/credentials" 
+? Region ca-central-1
+? Base Domain <myprefix>.<yourdomain.xyz>
+? Cluster Name <clustername>
+? Pull Secret [? for help] *******************************************************************************************************************************************************************************************************************************************************************************************
+INFO Install-Config created in: .
+```
+
  
 * Edit the install-config.yaml in your favorite editor.
 
