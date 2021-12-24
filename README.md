@@ -143,7 +143,7 @@ The Openshift installation requires public DNS records. Our organization has a p
 	? Cluster Name <clustername>
 	? Pull Secret [? for help]  ************************************************************************
 	INFO Install-Config created in: .
-```
+	```
  
 * Edit the install-config.yaml in your favorite editor.
 
