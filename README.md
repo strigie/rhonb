@@ -210,7 +210,7 @@ This will take some time to run
 
 	
   ```bash
-  export KUBECONFIG=~/dev/rhonb/$CLUSTERNAME/auth/kubeconfig
+  export KUBECONFIG=~/dev/$CLUSTERNAME/auth/kubeconfig
   ```
 
 * Create ConfigMap
@@ -256,7 +256,7 @@ We'll use the Google microservices demo
 
 * Customize the manifests slightly
 
-	Remove the frontend LoadBalancer service from ~/dev/microservices-demo/kubernetes-manifests.yaml with your favorite editor.
+	Remove the frontend LoadBalancer service from ~/dev/microservices-demo/release/kubernetes-manifests.yaml with your favorite editor.
 	
 	The service starts at line 290 and looks this:
 	
