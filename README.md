@@ -30,6 +30,7 @@ This document will provide an HOWTO install Openshift on AWS with Calico eBPF CN
 
 	```bash
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+  cd /tmp
 	unzip /tmp/awscliv2.zip
 	sudo /tmp/aws/install
 	```
@@ -77,7 +78,7 @@ This document will provide an HOWTO install Openshift on AWS with Calico eBPF CN
   aws configure
   ```
   Login to your AWS console and create an Access Key https://console.aws.amazon.com/iam/home#/security_credentials and input the credentials into the aws configure prompts. Choose a region that you would like to use. It should look something like this
-  
+
   ```bash
 	$ aws configure
 	AWS Access Key ID [None]: AKIABOGUSKEY
@@ -88,7 +89,7 @@ This document will provide an HOWTO install Openshift on AWS with Calico eBPF CN
 	The credentials will be saved to ~/.aws/credentials
 	
 	**Note:** This information should be kept confidential
-  
+
 * If you do not already have a ssh key create one and save it into ~/.ssh/
 
 	ed25519 type key recommended, load the key into your ssh-agent.
@@ -116,7 +117,7 @@ The Openshift installation requires public DNS records. Our organization has a p
   cd rhonb/route53/
   ansible-playbook route53.yaml -D -C -e basezone=$BASEZONE -e prefix=$PREFIX
   ```
-  
+
   The -C parameter will run the playbook in dry-run mode and will not do any changes. Once you are comfortable with it, run it without -C and a new Route53 zone (myprefix.yourdomain.xyz) will be created in AWS.
 
 ### Create openshift install-config
@@ -126,11 +127,11 @@ The Openshift installation requires public DNS records. Our organization has a p
   cd .. && mkdir $CLUSTERNAME && cd $CLUSTERNAME
   openshift-install create install-config
   ```
-  
+
   The installer will use your AWS credentials from ~/.aws/credentials automatically.
-  
+
   In the last step use the Red Hat pull secret you downloaded into pull-secret.json.
-  
+
   The output should look something like this
 
 	```pre
@@ -194,7 +195,7 @@ The Openshift installation requires public DNS records. Our organization has a p
 	curl https://docs.projectcalico.org/archive/v3.21/manifests/ocp/01-cr-apiserver.yaml -o manifests/01-cr-apiserver.yaml
   ```
   These are the links to Calico v3.21. Refer to https://projectcalico.docs.tigera.io/getting-started/openshift/installation for the latest version.
-  
+
 ### Create cluster
 
 This will take some time to run
@@ -202,7 +203,7 @@ This will take some time to run
   ```bash
   openshift-install create cluster
   ```
-  
+
 ### Enable the Calico eBPF dataplane
 
 * Set kubeconfig
@@ -246,7 +247,7 @@ This will take some time to run
 * Finally switch from the Calico Iptables to eBPF dataplane
 
 	```bash
-	kubectl patch installation.operator.tigera.io default --type merge -p '{"spec":{"calicoNetwork":{"linuxDataplane":"BPF", "hostPorts":null}}}'
+	oc patch installation.operator.tigera.io default --type merge -p '{"spec":{"calicoNetwork":{"linuxDataplane":"BPF", "hostPorts":null}}}'
 	```
 
 ### Deploy a test application
