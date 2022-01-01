@@ -32,7 +32,7 @@ This document will provide an HOWTO install Openshift on AWS with Calico eBPF CN
 	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
   cd /tmp
 	unzip /tmp/awscliv2.zip
-	sudo /tmp/aws/install
+	sudo /tmp/aws/install --update
 	```
 	
 	Refer to https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
